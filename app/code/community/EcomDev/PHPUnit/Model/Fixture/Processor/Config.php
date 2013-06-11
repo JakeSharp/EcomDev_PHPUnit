@@ -159,6 +159,12 @@ class EcomDev_PHPUnit_Model_Fixture_Processor_Config implements EcomDev_PHPUnit_
             $value = $backend->getValue();
         }
 
+        // WebShopApps Change
+        if (is_array($value)) {
+            // take the last value
+            $value = array_shift($value);
+        }
+
         Mage::getConfig()->setNode($path, $value);
         return $this;
     }
