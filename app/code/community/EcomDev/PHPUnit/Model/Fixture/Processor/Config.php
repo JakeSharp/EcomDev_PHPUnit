@@ -151,6 +151,14 @@ class EcomDev_PHPUnit_Model_Fixture_Processor_Config implements EcomDev_PHPUnit_
      */
     protected function _setConfigNodeValue($path, $value)
     {
+
+
+        // WebShopApps Change
+        if (is_array($value)) {
+            // take the last value
+            $value = array_shift($value);
+        }
+        
         if (($originalNode = Mage::getConfig()->getNode($path)) && $originalNode->getAttribute('backend_model')) {
             $backendModel = $originalNode->getAttribute('backend_model');
             $backend = Mage::getModel((string) $backendModel);
@@ -159,11 +167,6 @@ class EcomDev_PHPUnit_Model_Fixture_Processor_Config implements EcomDev_PHPUnit_
             $value = $backend->getValue();
         }
 
-        // WebShopApps Change
-        if (is_array($value)) {
-            // take the last value
-            $value = array_shift($value);
-        }
 
         Mage::getConfig()->setNode($path, $value);
         return $this;
