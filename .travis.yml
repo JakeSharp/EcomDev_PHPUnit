@@ -20,10 +20,8 @@ before_script:
   - bin/mage-ci shell $MAGE_DIR ecomdev-phpunit.php -a magento-config --db-name magento --same-db 1 --base_url http://test.magento.com/
   # Configuring test suite
   - bin/mage-ci shell $MAGE_DIR ecomdev-phpunit.php -a change-status --enable
-  # Fix Magento autoloader to run test
-  - bin/mage-ci shell $MAGE_DIR ecomdev-phpunit.php -a fix-autoloader
   # Copying phpunit.xml for travis builds
   - cp .travis/phpunit.xml $MAGE_DIR/phpunit.xml
 script:
   # output php ini info for checking the problem
-  - cd $MAGE_DIR && ../../bin/phpunit --colors --coverage-text -d display_errors=1
+  - bin/mage-ci phpunit $MAGE_DIR --colors --coverage-text -d display_errors=1
