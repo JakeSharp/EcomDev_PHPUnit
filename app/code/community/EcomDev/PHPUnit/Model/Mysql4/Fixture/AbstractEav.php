@@ -365,10 +365,15 @@ abstract class EcomDev_PHPUnit_Model_Mysql4_Fixture_AbstractEav
      */
     protected function _getOptionIdNonAttributeSource($options, $value)
     {
-        foreach ($options as $option) {
-            if (strcasecmp($option['label'], $value)==0 || $option['value'] == $value) {
-                return $option['value'];
+        if (false === stripos($value, ',')) {
+            foreach ($options as $option) {
+                if (strcasecmp($option['label'], $value) == 0 || $option['value'] == $value) {
+                    return $option['value'];
+                }
             }
+        } else {
+            // is an array, just return the value set
+            return $value;
         }
 
         return null;
